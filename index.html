@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Greet Me App</title>
+</head>
+<body>
+  <h2>Hello App</h2>
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button onclick="greet()">Greet Me</button>
+  <p id="result"></p>
+
+  <script>
+    async function greet() {
+      const name = document.getElementById("nameInput").value;
+      const url = `https://backend-task-3-1.onrender.com/hello?name=${encodeURIComponent(name)}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Network error");
+        const data = await response.json();
+        document.getElementById("result").innerText = data.message;
+      } catch (error) {
+        console.error("ERROR:", error);
+        document.getElementById("result").innerText = "Something went wrong 😢";
+      }
+    }
+  </script>
+</body>
+</html>
